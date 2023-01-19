@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все игроки</title>
+</head>
+<body>
+<div th:each="player : ${players}">
+    <a th:href="@{/player/{name}(name=${player.getName()})}"
+       th:text="${player.getName() + ' ' + player.getRank()}">Player</a>
+</div>
+<hr/>
+<a href="/player/add">Добавить игрока</a>
+
+</body>
+</html>

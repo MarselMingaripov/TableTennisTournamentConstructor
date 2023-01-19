@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление игроков</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/player}" th:object="${player}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+<hr/>
+<a href="/player/show-players">Показать список игроков</a>
+
+</body>
+</html>

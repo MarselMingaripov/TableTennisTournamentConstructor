@@ -67,10 +67,34 @@ public class AuthController {
                 roles));
     }*/
 
-    /*@PostMapping("/signin")
-    public String authUser(@ModelAttribute("user") LoginRequest loginRequest){
+    @GetMapping("/signin")
+    public String authTheUser(@ModelAttribute("user") LoginRequest loginRequest){
         return "auth/signin";
-    }*/
+    }
+
+
+    @PostMapping("/signin")
+    public String authUser(@ModelAttribute("user") LoginRequest loginRequest){
+
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles));
+        return "table/main";
+    }
     /*@PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
@@ -177,6 +201,6 @@ public class AuthController {
             model.addAttribute("ERRRRRRR");
             return "auth/signup";
         }
-        return "redirect:/";
+        return "redirect:/table/main";
     }
 }

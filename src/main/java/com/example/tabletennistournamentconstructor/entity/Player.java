@@ -2,6 +2,8 @@ package com.example.tabletennistournamentconstructor.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,8 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotBlank
+    @NotNull
     private String name;
     private int rank;
     private int score;
@@ -26,6 +30,10 @@ public class Player {
         this.name = name;
         this.rank = rank;
         this.score = score;
+    }
+
+    public Player(String name) {
+        this.name = name;
     }
 
     public Player(String name, int rank, int score, Set<Game> gameSet) {
@@ -69,5 +77,10 @@ public class Player {
 
     public void setGameSet(Set<Game> gameSet) {
         this.gameSet = gameSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Игрок " + " с именем " + name + " и рейтингом " + rank;
     }
 }
