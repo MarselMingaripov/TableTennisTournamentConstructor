@@ -18,7 +18,8 @@ public class PlayerController {
     @Autowired
     PlayerRepository playerRepository;
 
-    TournamentPlayer tournamentPlayer = new TournamentPlayer();
+    @Autowired
+    TournamentPlayer tournamentPlayer;
 
     @GetMapping("/add")
     public String createPlayer(@ModelAttribute("player") Player player) {

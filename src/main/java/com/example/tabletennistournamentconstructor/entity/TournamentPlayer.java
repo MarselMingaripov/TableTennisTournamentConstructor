@@ -1,10 +1,12 @@
 package com.example.tabletennistournamentconstructor.entity;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class TournamentPlayer {
     private List<Player> playerList = new ArrayList<>();
 

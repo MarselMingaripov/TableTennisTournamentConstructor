@@ -7,10 +7,11 @@
 <body>
 <div th:each="player : ${players}">
     <a th:href="@{/player/{name}(name=${player.getName()})}"
-       th:text="${player.getName() + ' ' + player.getRank()}">Player</a>
+       th:text="${player.getName()}">Player</a>
 </div>
 <hr/>
 <a href="/player/add">Добавить игрока</a>
+<a href="/game/generateTable">Сгенерировать таблицу</a>
 
 </body>
 </html>

@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>добавление</title>
+    <title>Игровая таблица</title>
 </head>
 <body>
+<table id="tennisTable" border="2">
+    <thead>
+    <tr>
+        <td></td>
+        <td th:each="player:${players}"
+            th:text="${player.getName()}"></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="player:${players}">
+        <td th:text="${player.getName()}"></td>
+        <td th:each="player:${players}">
+            <input type="text">
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<hr/>
+<input type="submit" value="Записать счет!"/>
 
 </body>
 </html>
+
+
+
+
+
+<!--<th  th:each="player : ${players}"
+     th:text="${player.getName()}"></th>-->
+
+<!--<table>
+    <tr><th>Заголовок 1</th><th>Заголовок 2</th></tr>
+    <tr><td>Ячейка 3</td><td>Ячейка 4</td></tr>
+</table>-->
+
+<!--
+<tr th:each="user : ${users}">
+    <th scope="row">
+        <p th:utext="${user.id}">
+    </th>
+    <td>
+        <p th:utext="${user.active}">
+    </td>
+    <td>
+        <p th:utext="${user.email}">
+    </td>
+    <td>
+        <p th:utext="${user.last_name}">
+    </td>
+    <td>
+        <p th:utext="${user.name}">
+    </td>
+</tr>-->
