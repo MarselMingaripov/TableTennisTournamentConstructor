@@ -17,6 +17,11 @@ public class Game {
     public Game() {
     }
 
+    public Game(String firstPlayer, String secondPlayer) {
+        this.firstPlayer = firstPlayer;
+        this.secondPlayer = secondPlayer;
+    }
+
     public Game(String firstPlayer, String secondPlayer, int firstPlayerScore, int secondPlayerScore) {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;

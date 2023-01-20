@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,11 +21,6 @@ public class Player {
     private String name;
     private int rank;
     private int score;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "player_game",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<Game> gameSet = new HashSet<>();
 
     public Player(String name, int rank, int score) {
         this.name = name;
@@ -34,13 +30,6 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-    }
-
-    public Player(String name, int rank, int score, Set<Game> gameSet) {
-        this.name = name;
-        this.rank = rank;
-        this.score = score;
-        this.gameSet = gameSet;
     }
 
     public Player() {
@@ -71,16 +60,21 @@ public class Player {
         this.score = score;
     }
 
-    public Set<Game> getGameSet() {
-        return gameSet;
-    }
-
-    public void setGameSet(Set<Game> gameSet) {
-        this.gameSet = gameSet;
-    }
-
     @Override
     public String toString() {
         return "Игрок " + " с именем " + name + " и рейтингом " + rank;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return rank == player.rank && name.equals(player.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, rank);
     }
 }
