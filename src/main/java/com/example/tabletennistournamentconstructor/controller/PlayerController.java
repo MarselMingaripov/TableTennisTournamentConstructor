@@ -2,6 +2,7 @@ package com.example.tabletennistournamentconstructor.controller;
 
 import com.example.tabletennistournamentconstructor.entity.Player;
 import com.example.tabletennistournamentconstructor.entity.TournamentService;
+import com.example.tabletennistournamentconstructor.repository.GameRepository;
 import com.example.tabletennistournamentconstructor.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class PlayerController {
     @Autowired
     TournamentService tournamentService;
 
+    @Autowired
+    GameRepository gameRepository;
+
     @GetMapping("/add")
     public String createPlayer(@ModelAttribute("player") Player player) {
         return "player/create";
@@ -28,7 +32,7 @@ public class PlayerController {
 
     @PostMapping()
     public String create(@ModelAttribute("player") @Valid Player player, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        /*if (bindingResult.hasErrors()) {
             return "player/create";
         } else {
             if (!playerRepository.findByName(player.getName()).isPresent()) {
@@ -46,6 +50,12 @@ public class PlayerController {
                     }
                 }
             }
+        }*/
+
+        if (bindingResult.hasErrors()) {
+            return "player/create";
+        } else {
+            tournamentService.addPlayer(player);
         }
         return "redirect:player/add";
     }

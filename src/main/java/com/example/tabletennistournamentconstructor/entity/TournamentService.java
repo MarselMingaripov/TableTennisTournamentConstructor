@@ -1,12 +1,8 @@
 package com.example.tabletennistournamentconstructor.entity;
 import com.example.tabletennistournamentconstructor.repository.GameRepository;
-import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.*;
 
 @Component
@@ -16,9 +12,9 @@ public class TournamentService {
     GameRepository gameRepository;
 
     private List<Player> playerList = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "game_id")
+
     private Map<String, Game> gamesMap = new HashMap<>();
+
 
     public void addPlayer(Player player){
         playerList.add(player);
@@ -27,6 +23,11 @@ public class TournamentService {
     public List<Player> getPlayerList() {
         return playerList;
     }
+
+    public Map<String, Game> getGamesMap() {
+        return gamesMap;
+    }
+
     public Player findByName(String name){
         Player player = null;
         for (Player players : playerList) {
@@ -55,5 +56,16 @@ public class TournamentService {
             //gameRepository.save(gamesMap.get(key));
         }
         return game;
+    }
+
+    public void addGameToPlayer(){
+        for (Player player : playerList) {
+            for (Game value : gamesMap.values()) {
+                if (player.getName().equals(value.getFirstPlayer())){
+                    player.getGameSet().add(value);
+                }
+
+            }
+        }
     }
 }

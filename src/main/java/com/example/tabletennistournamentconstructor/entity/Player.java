@@ -4,9 +4,7 @@ package com.example.tabletennistournamentconstructor.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "t_player", uniqueConstraints = {
@@ -21,6 +19,12 @@ public class Player {
     private String name;
     private int rank;
     private int score;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "player_games",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    private Set<Game> gameSet = new HashSet<>();
 
     public Player(String name, int rank, int score) {
         this.name = name;
@@ -58,6 +62,10 @@ public class Player {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public Set<Game> getGameSet() {
+        return gameSet;
     }
 
     @Override

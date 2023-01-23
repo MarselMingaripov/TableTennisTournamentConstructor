@@ -1,9 +1,11 @@
 package com.example.tabletennistournamentconstructor.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "t_game")
+
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
